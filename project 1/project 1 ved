@@ -1,0 +1,92 @@
+Create an environment: ML_Project1_Boston_House
+conda create -n ML_Project1_Boston_House
+
+to activate environment:
+Activate ML_Project1_Boston_House
+
+to install tensar flow:
+conda install tensorflow
+
+It will help to jump between environment:
+conda install nb_conda
+
+
+code to plot:
+import matplotlib.pyplot as plt
+plt.style.use('seaborn-whitegrid')
+import numpy as np
+print(dataset_boston.DESCR)
+x = np.linspace(0, 10, 30)
+y = np.sin(x)
+
+from sklearn import datasets
+dataset_boston = datasets.load_boston()
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+df_boston_features =pd.DataFrame(data=dataset_boston.data, columns=dataset_boston.feature_names)
+df_bostan_LSTAT=df_boston_features[['LSTAT']]
+df_bostan_MEDV= pd.DataFrame(data=dataset_boston.target,columns=['MEDV'])
+plt.plot(df_bostan_LSTAT, df_bostan_MEDV, 'o', color='black');
+
+shuffle=False
+
+import numpy as np
+from sklearn.linear_model import LinearRegression
+df_boston_features =pd.DataFrame(data=dataset_boston.data, columns=dataset_boston.feature_names)
+df_bostan_LSTAT=df_boston_features[['LSTAT']]
+df_bostan_MEDV= pd.DataFrame(data=dataset_boston.target,columns=['MEDV'])
+reg=LinearRegression().fit(df_bostan_LSTAT,df_bostan_MEDV)
+reg.coef_
+reg.intercept_
+
+reg.predict(df_bostan_LSTAT)
+
+
+from sklearn.metrics import mean_squared_error
+mean_squared_error(df_bostan_LSTAT,reg.predict(df_bostan_LSTAT), squared=True)
+
+
+
+
+from sklearn import datasets
+dataset_boston = datasets.load_boston()
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+df_boston_features =pd.DataFrame(data=dataset_boston.data, columns=dataset_boston.feature_names)
+df_bostan_LSTAT=df_boston_features[['LSTAT']]
+df_bostan_MEDV= pd.DataFrame(data=dataset_boston.target,columns=['MEDV'])
+from sklearn.model_selection import train_test_split
+df_bostan_LSTAT_train, df_bostan_LSTAT_test, df_bostan_MEDV_train, df_bostan_MEDV_test = train_test_split(
+df_bostan_LSTAT, df_bostan_MEDV, test_size=0.20, random_state=42)
+plt.plot(df_bostan_LSTAT_train, df_bostan_MEDV_train, 'o', color='black');
+
+
+
+
+
+from numpy.linalg import inv
+an_array = np.insert(np.array(df_bostan_LSTAT_train), 0, 1, axis=1)
+df_bostan_LSTAT_train_vector = np.insert(np.array(df_bostan_LSTAT_train), 0, 1, axis=1)
+ainv=inv(np.dot(np.array(df_bostan_LSTAT_train_vector.transpose()),np.array(df_bostan_LSTAT_train_vector)))
+np.matmul(np.matmul(ainv,df_bostan_LSTAT_train_vector.transpose()),np.array(df_bostan_MEDV_train))
+w=np.matmul(np.matmul(ainv,df_bostan_LSTAT_train_vector.transpose()),np.array(df_bostan_MEDV_train))
+plt.scatter(df_bostan_LSTAT_train_vector[:,1],df_bostan_MEDV_train)
+plt.xlabel("LSTAT")
+plt.ylabel("MEDV")
+
+plt.plot(df_bostan_LSTAT_train_vector[:,1], np.matmul(df_bostan_LSTAT_train_vector,w), color='red')
+plt.show()
+
+array([[1.14406334]])
+
+
+
+plt.scatter(X, t)
+plt.xlabel("LSTAT")
+plt.ylabel("MEDV")
+plt.plot(X, y, color='red')
+plt.show()
